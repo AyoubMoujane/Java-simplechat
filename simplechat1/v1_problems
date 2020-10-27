@@ -1,0 +1,4 @@
+In the first version we can see multiple problems for example:
+
+The client is not notified when the server is killed.
+The server doesn’t give information upon connection/disconnection of clients.
