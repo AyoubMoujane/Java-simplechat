@@ -30,7 +30,7 @@ public class ServerConsole implements ChatIF {
 	   */
 	  public ServerConsole(int port) 
 	  {
-	      server = new EchoServer(port);
+	      server = new EchoServer(port,this);
 	  }
 	  
 	  /**
@@ -42,6 +42,10 @@ public class ServerConsole implements ChatIF {
 	  public void display(String message) 
 	  {
 	    System.out.println("> " + message);
+	  }
+	  
+	  public void listen() throws IOException{
+		  server.listen();
 	  }
 	  
 	  /**
@@ -64,6 +68,7 @@ public class ServerConsole implements ChatIF {
 	    } 
 	    catch (Exception ex) 
 	    {
+	    	ex.printStackTrace();
 	      System.out.println
 	        ("Unexpected error while reading from console!");
 	    }
@@ -83,17 +88,17 @@ public class ServerConsole implements ChatIF {
 	      port = DEFAULT_PORT; //Set port to 5555
 	    }
 		
-	    EchoServer server = new EchoServer(port);
+	    ServerConsole chat= new ServerConsole(port);
 	    
 	    try 
 	    {
-	      server.listen(); //Start listening for connections
+		    chat.listen();
+		    //Start listening for connections
 	    } 
 	    catch (Exception ex) 
 	    {
 	      System.out.println("ERROR - Could not listen for clients!");
 	    }
-	    ServerConsole chat= new ServerConsole(port);
 	    chat.accept();  //Wait for console data
 	  }
 
